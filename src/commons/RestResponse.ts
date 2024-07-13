@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { applyDecorators } from '@nestjs/common';
 import { ApiExtraModels, ApiOkResponse, getSchemaPath } from '@nestjs/swagger';
 import { RestResource } from './restResource';
 
-export const RestResponse = (model: any) => {
+export const RestResponse = (model: Function) => {
   return applyDecorators(
     ApiExtraModels(model),
     ApiOkResponse({
@@ -22,7 +23,7 @@ export const RestResponse = (model: any) => {
   );
 };
 
-export const RestResponseArray = (model: any) => {
+export const RestResponseArray = (model: Function) => {
   return applyDecorators(
     ApiExtraModels(model),
     ApiOkResponse({
