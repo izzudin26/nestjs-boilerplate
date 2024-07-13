@@ -1,0 +1,34 @@
+networks:
+  nest-web-service:
+    driver: 'bridge'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:12.18
+    restart: always
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'postgres'
+    ports:
+      - 5430:5432
+    networks:
+      - nest-web-service
+
+  webservice:
+    container_name: lapas-nest
+    build: .
+    restart: always
+    environment:
+      PORT: 3000
+      DB_HOST: lapas-postgres
+      DB_NAME: 'postgres'
+      DB_PASSWORD: 'postgres'
+      DB_USERNAME: 'postgres'
+      DB_PORT: '5432'
+      NODE_ENV: 'dev'
+    ports:
+      - 3000:3000
+    networks:
+      - nest-web-service
